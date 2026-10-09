@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>北京公交线路地图</title>
+  <link rel="stylesheet" href="css/style.css?v=20261009_19">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- 左侧控制面板 -->
+    <aside class="sidebar">
+      <header class="sidebar-header">
+        <div class="brand">
+          <span class="brand-icon">🚌</span>
+          <h1>北京公交线路地图</h1>
+        </div>
+        <div class="header-stats">
+          <span class="badge badge-primary" id="total-routes-badge">加载中...</span>
+          <span class="badge badge-success" id="active-routes-badge">已显示: 0</span>
+        </div>
+      </header>
+
+      <!-- 搜索过滤栏 -->
+      <section class="search-section">
+        <div class="search-input-wrapper">
+          <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="search" id="search-input" name="search_bus_query_no_autofill" placeholder="搜索线路编号 (如 1、44、300) 或站名..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-form-type="other" data-lpignore="true">
+          <button id="clear-search-btn" class="clear-btn" title="清空搜索" style="display: none;">×</button>
+        </div>
+
+        <div class="sidebar-sub-toolbar">
+          <span class="sub-toolbar-hint" id="sub-toolbar-hint">点击卡片切换展示/隐藏</span>
+          <div class="global-stops-toggle-wrapper" title="控制地图上是否显示当前已选公交的沿途站点名称">
+            <span class="stops-toggle-label">🚏 显示站点</span>
+            <label class="switch-control">
+              <input type="checkbox" id="global-stops-toggle" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- 双栏联动主容器 -->
+      <div class="master-detail-container" id="master-detail-container">
+        <!-- 左列：分类导航菜单 -->
+        <nav class="nav-categories-panel" id="nav-categories-panel">
+          <!-- 动态渲染分类导航列表 -->
+        </nav>
+
+        <!-- 右列：当前分类的线路列表及操作条 -->
+        <section class="detail-routes-panel" id="detail-routes-panel">
+          <div class="detail-header" id="detail-header">
+            <!-- 动态渲染当前分类标题与批量控制按钮 -->
+          </div>
+          <div class="detail-routes-list" id="detail-routes-list">
+            <div class="loading-state" id="loading-state">
+              <div class="spinner"></div>
+              <p>正在读取北京公交路线数据...</p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 侧边栏展开/收起悬浮拉手 -->
+      <button id="sidebar-toggle-btn" class="sidebar-toggle-btn" title="收起左侧面板" aria-label="收起左侧面板">
+        <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+    </aside>
+
+    <!-- 右侧地图展示区 -->
+    <main class="map-wrapper">
+      <div id="amap-container"></div>
+
+      <!-- 地图浮层控制条 -->
+      <div class="map-controls">
+        <button id="toggle-theme-btn" class="map-btn" title="切换底图风格">
+          <span class="icon">🌓</span> <span>深色/标准</span>
+        </button>
+      </div>
+
+      <!-- 悬浮提示框：当前高亮/选中线路 -->
+      <div id="route-hover-tooltip" class="route-tooltip" style="display: none;"></div>
+    </main>
+  </div>
+
+  <!-- 引入配置与业务脚本 -->
+  <script src="config.js?v=20261009_19"></script>
+  <script src="js/map.js?v=20261009_19"></script>
+  <script src="js/app.js?v=20261009_19"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+# 本地私密配置文件（包含高德 API Key 与安全密钥，云端由环境变量自动注入）
+config.js
+
+# 原始未压缩超大数据文件（98MB，已由 10MB 的 beijing_bus_routes.json.gz 替代，避免超过平台限制）
+data/beijing_bus_routes.json
+
+# 系统与依赖缓存
+.DS_Store
+Thumbs.db
+node_modules/
+*.log

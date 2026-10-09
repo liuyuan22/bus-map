@@ -1,0 +1,18 @@
+{
+  "name": "beijing-bus-map",
+  "version": "1.0.0",
+  "description": "基于高德地图 WebGL 硬件加速与仿真 LED 电子路牌的北京全量公交路线可视化系统",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-config.js"
+  },
+  "keywords": [
+    "bus",
+    "beijing",
+    "amap",
+    "webgl",
+    "visualization"
+  ],
+  "author": "liuyuan22",
+  "license": "MIT"
+}

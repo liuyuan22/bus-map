@@ -1,0 +1,1052 @@
+/* === 北京公交 LED 拟真点阵像素字库 (Ark Pixel Font) === */
+@font-face {
+  font-family: 'BusPixelFont';
+  src: url('../fonts/ark-pixel-12px-proportional-zh_hans.otf.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BusPixelFont';
+  src: url('../fonts/ark-pixel-12px-proportional-latin.otf.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  unicode-range: U+0000-00FF;
+  font-display: swap;
+}
+
+/* === 全局基础与变量 === */
+:root {
+  --bg-primary: #12141a;
+  --bg-secondary: #1a1e28;
+  --bg-tertiary: #242938;
+  --bg-hover: #2d3448;
+  --border-color: #2e354b;
+  --text-main: #f0f3fa;
+  --text-secondary: #9da8c3;
+  --text-muted: #64708d;
+  
+  --accent-color: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-glow: rgba(59, 130, 246, 0.25);
+  
+  --active-color: #10b981;
+  --active-hover: #059669;
+  --active-glow: rgba(16, 185, 129, 0.25);
+  
+  --highlight-color: #f59e0b;
+  --danger-color: #ef4444;
+  
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.5);
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --sidebar-width: 480px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-main);
+  height: 100vh;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === 主应用布局 === */
+.app-layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+/* === 左侧面板 === */
+.sidebar {
+  width: var(--sidebar-width, 480px);
+  min-width: var(--sidebar-width, 480px);
+  max-width: var(--sidebar-width, 480px);
+  height: 100%;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
+  position: relative;
+  flex-shrink: 0;
+  transition: margin-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidebar.collapsed {
+  margin-left: calc(-1 * var(--sidebar-width, 480px));
+}
+
+/* === 侧边栏展开/收起悬浮拉手 === */
+.sidebar-toggle-btn {
+  position: absolute;
+  top: 50%;
+  right: -24px;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 64px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-left: none;
+  border-radius: 0 8px 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  box-shadow: 4px 0 14px rgba(0, 0, 0, 0.35);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 30;
+  padding: 0;
+  outline: none;
+}
+
+.sidebar-toggle-btn:hover {
+  background: var(--bg-tertiary);
+  color: #60a5fa;
+  border-color: rgba(59, 130, 246, 0.4);
+  width: 26px;
+  right: -26px;
+}
+
+.sidebar-toggle-btn .toggle-icon {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidebar.collapsed .sidebar-toggle-btn .toggle-icon {
+  transform: rotate(180deg);
+}
+
+.sidebar-header {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.brand-icon {
+  font-size: 24px;
+  background: var(--bg-tertiary);
+  padding: 5px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  line-height: 1;
+}
+
+.brand h1 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.3px;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.header-stats {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  letter-spacing: 0.2px;
+}
+
+.badge-primary {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.badge-success {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* === 搜索过滤区域 === */
+.search-section {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0 12px;
+  transition: all 0.2s ease;
+}
+
+.search-input-wrapper:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.search-icon {
+  color: var(--text-muted);
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.search-input-wrapper input {
+  width: 100%;
+  height: 38px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-main);
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.search-input-wrapper input::placeholder {
+  color: var(--text-muted);
+}
+
+.clear-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 2px 6px;
+  line-height: 1;
+}
+
+.clear-btn:hover {
+  color: var(--text-main);
+}
+
+/* === 工具栏辅助条 === */
+.sidebar-sub-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  padding: 0 2px;
+}
+
+.sub-toolbar-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.global-stops-toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 3px 8px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.global-stops-toggle-wrapper:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.stops-toggle-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-main);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* 简约滑块开关 */
+.switch-control {
+  position: relative;
+  display: inline-block;
+  width: 28px;
+  height: 15px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.switch-control input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.switch-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.switch-slider::before {
+  position: absolute;
+  content: "";
+  height: 9px;
+  width: 9px;
+  left: 2px;
+  bottom: 2px;
+  background-color: var(--text-muted);
+  border-radius: 50%;
+  transition: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.switch-control input:checked + .switch-slider {
+  background-color: #10B981;
+  border-color: #10B981;
+}
+
+.switch-control input:checked + .switch-slider::before {
+  transform: translateX(13px);
+  background-color: #FFFFFF;
+}
+
+/* === 双栏联动主容器 === */
+.master-detail-container {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+/* === 左列：分类导航菜单 === */
+.nav-categories-panel {
+  width: 155px;
+  min-width: 155px;
+  max-width: 155px;
+  height: 100%;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0;
+  user-select: none;
+}
+
+.nav-categories-panel::-webkit-scrollbar {
+  width: 4px;
+}
+
+.nav-categories-panel::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 2px;
+}
+
+.nav-categories-panel::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+.nav-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  padding: 8px 10px 3px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  margin-top: 4px;
+}
+
+.nav-section-title:first-child {
+  border-top: none;
+  margin-top: 0;
+}
+
+.nav-cat-item {
+  padding: 6px 8px 6px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  transition: all 0.15s ease;
+  border-left: 3px solid transparent;
+  position: relative;
+  gap: 4px;
+}
+
+.nav-cat-item:hover {
+  background: var(--bg-hover);
+  color: var(--text-main);
+}
+
+.nav-cat-item.active {
+  background: rgba(59, 130, 246, 0.14);
+  color: #60a5fa;
+  border-left-color: #3b82f6;
+  font-weight: 600;
+}
+
+/* 特色专栏：已上图路线 */
+.nav-cat-item.featured-active-map {
+  background: rgba(16, 185, 129, 0.08);
+  color: #34d399;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+  margin-bottom: 4px;
+  padding: 8px 10px;
+  font-weight: 600;
+}
+
+.nav-cat-item.featured-active-map:hover {
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+}
+
+.nav-cat-item.featured-active-map.active {
+  background: rgba(16, 185, 129, 0.22);
+  border-left-color: #10b981;
+  color: #10b981;
+}
+
+.nav-cat-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.nav-cat-badges {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.nav-cat-count {
+  font-size: 10px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1px 4px;
+  border-radius: 8px;
+}
+
+.nav-cat-item.active .nav-cat-count {
+  color: #93c5fd;
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.nav-cat-active-pill {
+  font-size: 9px;
+  font-weight: 700;
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  padding: 0 4px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* === 右列：选中分类的线路列表及操作条 === */
+.detail-routes-panel {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+}
+
+.detail-header {
+  padding: 9px 12px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  min-height: 48px;
+}
+
+.detail-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.detail-header-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.detail-header-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.detail-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.detail-action-btn {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 12px;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  background: rgba(59, 130, 246, 0.12);
+  color: #60a5fa;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.detail-action-btn:hover {
+  background: rgba(59, 130, 246, 0.25);
+  color: #93c5fd;
+}
+
+.detail-action-btn.all-shown {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+.detail-action-btn.all-shown:hover {
+  background: rgba(239, 68, 68, 0.25);
+}
+
+.detail-routes-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  position: relative;
+  padding: 0;
+}
+
+.virtual-scroll-spacer {
+  width: 100%;
+  pointer-events: none;
+  visibility: hidden;
+  height: 0;
+}
+
+.virtual-scroll-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  will-change: transform;
+}
+
+.detail-routes-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.detail-routes-list::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 3px;
+}
+
+.detail-routes-list::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* === 公交车头 LED 电子路牌卡片 (Beijing Bus Headsign LED Board Style) === */
+.route-card.led-board {
+  height: 86px;
+  box-sizing: border-box;
+  background: #0f131a;
+  border: 2px solid #1f2530;
+  border-radius: 9px;
+  padding: 6px 8px;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px;
+  user-select: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.route-card.led-board:hover {
+  border-color: #3b4556;
+  background: #141a24;
+  transform: translateY(-1.5px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.45);
+}
+
+/* 激活点亮态 (选中 / 上图展示) */
+.route-card.led-board.is-selected {
+  border-color: #ff9800;
+  box-shadow: 0 0 0 1.5px rgba(255, 152, 0, 0.5), 0 4px 16px rgba(255, 152, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.6);
+  background: #111620;
+}
+
+/* 临时悬停高亮线 */
+.route-card.led-board.highlighted {
+  border-color: var(--highlight-color);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.45);
+}
+
+/* 屏幕区域 (带点阵滤镜与真实反光) */
+.led-screen {
+  position: relative;
+  background-color: #07090d;
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.08) 1.2px, transparent 1.2px),
+    linear-gradient(180deg, rgba(20, 24, 34, 0.4) 0%, rgba(5, 7, 10, 0.95) 100%);
+  background-size: 3.5px 3.5px, 100% 100%;
+  border-radius: 6px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.95);
+  overflow: hidden;
+  gap: 8px;
+}
+
+/* 玻璃反光弧光 */
+.led-screen-glare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 38%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.005) 100%);
+  pointer-events: none;
+}
+
+/* 左右站名 (金黄琥珀色 LED 点阵字) - 严格保护展示空间，无论路号多长两端均稳定完整不被挤压 */
+.led-station {
+  flex: 1 1 0;
+  min-width: 78px;
+  max-width: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.led-station.led-start,
+.led-station.led-end {
+  text-align: center;
+  align-items: center;
+}
+
+/* 站名上下双行 / 单行弹性排版容器（统一水平居中） */
+.led-station-stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-width: 0;
+  width: 100%;
+}
+
+.led-station-stack.align-start,
+.led-station-stack.align-end {
+  align-items: center;
+  text-align: center;
+}
+
+/* 站名点阵字形（纯正 16/12 点阵像素字体） */
+.station-line-text {
+  font-family: 'BusPixelFont', 'SimHei', 'Microsoft YaHei', -apple-system, sans-serif;
+  font-weight: normal;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-align: center;
+  color: #f59e0b; /* 待机清晰暖琥珀黄（高对比度无光晕） */
+  opacity: 0.90;
+  transition: all 0.2s ease;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+/* 单行短站名 (4字及以下)：饱满大字 */
+.led-station-stack.single-line .station-line-text {
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+/* 双行长站名 (5字及以上)：紧凑上下堆叠大字 */
+.led-station-stack.multi-line .station-line-text {
+  font-size: 13px;
+  line-height: 1.15;
+}
+
+.led-station-stack.multi-line .line-top {
+  margin-bottom: 2px;
+}
+
+/* 中间线路编号视窗 (大红 LED 醒目大字与视窗走字) */
+.led-number-box {
+  flex: 0 0 34%;
+  width: 34%;
+  max-width: 34%;
+  min-width: 76px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 默认短路号居中静止 */
+  padding: 0 4px;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+/* 超长路号走字滚动模式：对齐靠左，确保初始停顿完整展现前缀 */
+.led-number-box.has-marquee {
+  justify-content: flex-start;
+}
+
+.led-number {
+  display: inline-block;
+  font-size: 26px;
+  line-height: 1.1;
+  font-weight: normal;
+  color: #ef4444; /* 待机清晰鲜明正红（高对比度无光晕） */
+  opacity: 0.95;
+  font-family: 'BusPixelFont', 'Impact', 'Courier New', monospace;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+/* 超长路号平滑左右往返走字 (LED Marquee Ping-Pong) */
+.led-number.is-marquee {
+  animation: led-marquee-bounce var(--marquee-dur, 5s) cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: transform;
+}
+
+@keyframes led-marquee-bounce {
+  0%, 22% {
+    transform: translateX(0);
+  }
+  50%, 72% {
+    transform: translateX(var(--marquee-dist, -40px));
+  }
+  95%, 100% {
+    transform: translateX(0);
+  }
+}
+
+/* === 点亮状态 (选中 / 上图) === */
+.route-card.led-board.is-selected .station-line-text {
+  color: #FFB300;
+  opacity: 1;
+  text-shadow: 
+    0 0 1px #FFE082,
+    0 0 4px #FFB300,
+    0 0 10px rgba(255, 179, 0, 0.7);
+}
+
+.route-card.led-board.is-selected .led-number {
+  color: #FF2E2E;
+  opacity: 1;
+  text-shadow: 
+    0 0 1px #FFA4A4,
+    0 0 5px #FF2E2E,
+    0 0 12px rgba(255, 46, 46, 0.8);
+}
+
+/* 待机微光提示 (Hover) */
+.route-card.led-board:not(.is-selected):hover .station-line-text {
+  color: #fbbf24;
+  opacity: 1;
+}
+.route-card.led-board:not(.is-selected):hover .led-number {
+  color: #f87171;
+  opacity: 1;
+}
+
+/* 底部微型状态栏（仅保留站点数，靠右对齐） */
+.led-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1px 4px;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.led-meta-stops {
+  font-size: 10px;
+  color: var(--text-muted);
+  opacity: 0.85;
+}
+
+/* === 加载与空状态 === */
+.loading-state, .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: var(--text-secondary);
+  text-align: center;
+  gap: 8px;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid rgba(59, 130, 246, 0.2);
+  border-top-color: var(--accent-color);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 6px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* === 右侧地图区域 === */
+.map-wrapper {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  background: #000;
+}
+
+#amap-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* === 地图浮层控制按钮 === */
+.map-controls {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+}
+
+.map-btn {
+  background: rgba(26, 30, 40, 0.88);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--shadow-md);
+  transition: all 0.2s ease;
+}
+
+.map-btn:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--accent-color);
+  transform: translateY(-1px);
+}
+
+/* === 线路 Hover 悬浮浮标 Tooltip === */
+.route-tooltip {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  z-index: 15;
+  background: rgba(26, 30, 40, 0.94);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--highlight-color);
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  color: var(--text-main);
+  box-shadow: var(--shadow-lg), 0 0 16px rgba(245, 158, 11, 0.25);
+  max-width: 380px;
+  pointer-events: none;
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.route-tooltip h4 {
+  font-size: 14px;
+  color: var(--highlight-color);
+  margin-bottom: 4px;
+}
+
+.route-tooltip p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* 隐藏浏览器原生 search input 的默认取消按钮与修饰 */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+/* === 线路站点名称标记 Marker === */
+.bus-stop-node {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.15s ease;
+}
+
+.bus-stop-node:hover {
+  transform: scale(1.08);
+  z-index: 150 !important;
+}
+
+.bus-stop-node .stop-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1.5px solid #fff;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+}
+
+.bus-stop-node .stop-label {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 1px 5px;
+  border-radius: 4px;
+  line-height: 1.3;
+  letter-spacing: 0.2px;
+  transition: all 0.2s ease;
+}
+
+/* 深色模式下的站点标签 */
+.bus-stop-node.theme-dark .stop-label {
+  background: rgba(20, 24, 33, 0.88);
+  color: #f1f5f9;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+}
+
+.bus-stop-node.theme-dark:hover .stop-label {
+  border-color: #60a5fa;
+  color: #93c5fd;
+}
+
+/* 浅色模式下的站点标签 */
+.bus-stop-node.theme-light .stop-label {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1e293b;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  box-shadow: 0 1.5px 5px rgba(0, 0, 0, 0.18);
+}
+
+.bus-stop-node.theme-light:hover .stop-label {
+  border-color: #3b82f6;
+  color: #2563eb;
+}
+
+/* 起点站 */
+.bus-stop-node.is-start .stop-dot {
+  width: 9px;
+  height: 9px;
+  background: #10B981 !important;
+  border: 2px solid #FFFFFF !important;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+}
+
+.bus-stop-node.is-start .stop-label {
+  background: #10B981 !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4) !important;
+}
+
+/* 终点站 */
+.bus-stop-node.is-end .stop-dot {
+  width: 9px;
+  height: 9px;
+  background: #EF4444 !important;
+  border: 2px solid #FFFFFF !important;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
+}
+
+.bus-stop-node.is-end .stop-label {
+  background: #EF4444 !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4) !important;
+}
+
