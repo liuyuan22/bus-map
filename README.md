@@ -60,7 +60,14 @@
 
 本项目为纯静态单页应用，天然完美支持 Cloudflare Pages、Vercel 等静态托管平台。
 
-### 部署步骤：
+### 本地一键打包发布 (推荐，超快速)：
+如果您在本地已通过 `npx wrangler login` 授权，日常修改代码后只需在终端执行一行命令：
+```bash
+npm run deploy
+```
+系统会自动执行构建打包（提取纯净静态资源与 Gzip 数据），并在数秒内全自动同步发布至 Cloudflare Pages 线上生产环境！
+
+### 通过 GitHub 自动构建部署：
 1. 登录 [Cloudflare 控制台](https://dash.cloudflare.com/)，进入 **Workers & Pages** -> **Create application** -> **Pages** -> **Connect to Git**；
 2. 选择本仓库 `bus-map`；
 3. **构建设置 (Build configuration)**：
