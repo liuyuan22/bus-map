@@ -4,7 +4,7 @@
   "description": "基于高德地图 WebGL 硬件加速与仿真 LED 电子路牌的北京全量公交路线可视化系统",
   "private": true,
   "scripts": {
-    "build": "node scripts/build-config.js"
+    "build": "node scripts/build.js"
   },
   "keywords": [
     "bus",

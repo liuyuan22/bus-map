@@ -5,6 +5,8 @@ config.js
 data/beijing_bus_routes.json
 
 # 系统与依赖缓存
+dist/
+.wrangler/
 .DS_Store
 Thumbs.db
 node_modules/
